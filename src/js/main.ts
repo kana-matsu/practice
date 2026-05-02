@@ -24,7 +24,7 @@ const carousel = (root: HTMLElement) => {
             }
 
             dot.textContent = `${i + 1}`;
-            fragment.append(dot);
+            fragment.append(clone);
         });
 
         return fragment;
