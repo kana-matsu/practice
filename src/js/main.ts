@@ -5,7 +5,7 @@ const carousel = (root: HTMLElement) => {
     const play = root.querySelector<HTMLButtonElement>('.js-carousel__play');
     const previous = root.querySelector<HTMLButtonElement>('.js-carousel__previous');
     const next = root.querySelector<HTMLButtonElement>('.js-carousel__next');
-    const pagination = root.querySelector<HTMLButtonElement>('.js-carousel__pagination');
+    const pagination = root.querySelector<HTMLUListElement>('.js-carousel__pagination');
     const template = root.querySelector<HTMLTemplateElement>('.js-carousel__template');
 
     if (!pagination || !template) {
