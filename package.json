@@ -8,11 +8,13 @@
   },
   "type": "module",
   "scripts": {
-    "start": "vite",
+    "start": "vite build && concurrently \"vite build --watch\" \"vite\"",
     "build": "tsc && vite build",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "concurrently": "^9.2.1",
+    "glob": "^13.0.6",
     "typescript": "^6.0.3",
     "vite": "^8.0.10"
   }
