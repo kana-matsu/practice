@@ -1,0 +1,121 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-bg: #f5f4f0;
+  --color-text: #1a1a1a;
+  --color-accent: #2a2a2a;
+  --color-dot: #c8c6bf;
+  --color-dot-active: #1a1a1a;
+  --color-btn-bg: #1a1a1a;
+  --color-btn-text: #f5f4f0;
+  --color-btn-hover: #3a3a3a;
+  --slide-gap: 0px;
+  --transition-speed: 0.4s;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Georgia', serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.carousel {
+  width: 100%;
+  max-width: 720px;
+}
+
+.carousel__wrapper {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel__slide {
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 360px;
+  background-color: #e8e6e0;
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+  color: var(--color-text);
+  transition: transform var(--transition-speed) ease;
+  user-select: none;
+}
+
+.carousel__slide:nth-child(even) {
+  background-color: #dddbd4;
+}
+
+.carousel__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.carousel__stop,
+.carousel__play,
+.carousel__previous,
+.carousel__next {
+  appearance: none;
+  border: 1px solid var(--color-accent);
+  background-color: transparent;
+  color: var(--color-accent);
+  font-family: inherit;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.carousel__stop:hover,
+.carousel__play:hover,
+.carousel__previous:hover,
+.carousel__next:hover {
+  background-color: var(--color-btn-bg);
+  color: var(--color-btn-text);
+}
+
+.carousel__pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  margin-left: auto;
+}
+
+.carousel__dot {
+  appearance: none;
+  border: none;
+  background-color: var(--color-dot);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.carousel__dot:hover {
+  background-color: var(--color-dot-active);
+}
+
+.carousel__dot.is-active {
+  background-color: var(--color-dot-active);
+  transform: scale(1.4);
+}
