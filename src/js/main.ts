@@ -30,9 +30,13 @@ const carousel = (root: HTMLElement) => {
         return fragment;
     }
 
-    const dots = generateDots();
-    
-    template.replaceWith(dots);
+    const init = () => {
+        const dots = generateDots();
+
+        template.replaceWith(dots);
+    }
+
+    init();
 }
 
 const roots = document.querySelectorAll<HTMLElement>('.js-carousel');
