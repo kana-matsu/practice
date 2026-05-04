@@ -21,6 +21,8 @@ const carousel = (root: HTMLElement) => {
         }
 
         wrapper.style.transform = `translate3d(-${i * 100}%, 0, 0)`;
+        slides[currentIndex].setAttribute('inert', '');
+        slides[i].removeAttribute('inert');
         currentIndex = i;
     }
 
@@ -67,6 +69,14 @@ const carousel = (root: HTMLElement) => {
         const dots = generateDots();
 
         template.replaceWith(dots);
+
+        slides.forEach((slide, i) => {
+            if (i === currentIndex) {
+                return;
+            }
+
+            slide.setAttribute('inert', '');
+        });
 
         next.addEventListener('click', goNext);
         previous.addEventListener('click', goPrevious);
