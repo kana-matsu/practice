@@ -9,7 +9,7 @@ const carousel = (root: HTMLElement) => {
     const pagination = root.querySelector<HTMLUListElement>('.js-carousel__pagination');
     const template = root.querySelector<HTMLTemplateElement>('.js-carousel__template');
 
-    if (!wrapper || !pagination || !template || !next || !previous) {
+    if (!wrapper || !pagination || !template || !next || !previous || !stop || !play) {
         return;
     }
 
@@ -44,11 +44,19 @@ const carousel = (root: HTMLElement) => {
         template.replaceWith(dots);
 
         next.addEventListener('click', () => {
-            goTo(currentIndex + 1);
+            if (currentIndex === slides.length - 1) {
+                goTo(0);
+            } else {
+                goTo(currentIndex + 1);
+            }
         });
 
         previous.addEventListener('click', () => {
-            goTo(currentIndex - 1);
+            if (currentIndex === 0) {
+                goTo(slides.length - 1);
+            } else {
+                goTo(currentIndex - 1);
+            }
         });
     }
 
