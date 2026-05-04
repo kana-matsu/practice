@@ -109,8 +109,8 @@ const carousel = (root: HTMLElement) => {
 
         next.addEventListener('click', goNext);
         previous.addEventListener('click', goPrevious);
-
         stop.addEventListener('click', stopSlides);
+        play.addEventListener('click', autoplaySlides);
     }
 
     init();
