@@ -15,6 +15,7 @@ const carousel = (root: HTMLElement) => {
 
     let currentIndex = 0;
     let dots: HTMLButtonElement[] = [];
+    let intervalId: ReturnType<typeof setInterval> | null = null;
 
     const INTERVAL = 5000;
 
@@ -50,8 +51,17 @@ const carousel = (root: HTMLElement) => {
         }
     }
 
-    const autoplay = () => {
-        setInterval(goNext, INTERVAL);
+    const autoplaySlides = () => {
+        intervalId ??= setInterval(goNext, INTERVAL);
+    }
+
+    const stopSlides = () => {
+        if (!intervalId) {
+            return;
+        }
+
+        clearInterval(intervalId);
+        intervalId = null;
     }
 
     const generateDots = () => {
@@ -95,10 +105,12 @@ const carousel = (root: HTMLElement) => {
             slide.setAttribute('inert', '');
         });
 
-        autoplay();
+        autoplaySlides();
 
         next.addEventListener('click', goNext);
         previous.addEventListener('click', goPrevious);
+
+        stop.addEventListener('click', stopSlides);
     }
 
     init();
