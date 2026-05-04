@@ -1,5 +1,6 @@
 // Carousel
 const carousel = (root: HTMLElement) => {
+    const wrapper = root.querySelector<HTMLElement>('.js-carousel__wrapper');
     const slides = root.querySelectorAll<HTMLElement>('.js-carousel__slide');
     const stop = root.querySelector<HTMLButtonElement>('.js-carousel__stop');
     const play = root.querySelector<HTMLButtonElement>('.js-carousel__play');
@@ -8,9 +9,11 @@ const carousel = (root: HTMLElement) => {
     const pagination = root.querySelector<HTMLUListElement>('.js-carousel__pagination');
     const template = root.querySelector<HTMLTemplateElement>('.js-carousel__template');
 
-    if (!pagination || !template) {
+    if (!wrapper || !pagination || !template || !next || !previous) {
         return;
     }
+
+    let currentIndex = 0;
 
     const generateDots = () => {
         const fragment = document.createDocumentFragment();
@@ -30,10 +33,23 @@ const carousel = (root: HTMLElement) => {
         return fragment;
     }
 
+    const goTo = (i: number) => {
+        wrapper.style.transform = `translate3d(-${i * 100}%, 0, 0)`;
+        currentIndex = i;
+    }
+
     const init = () => {
         const dots = generateDots();
 
         template.replaceWith(dots);
+
+        next.addEventListener('click', () => {
+            goTo(currentIndex + 1);
+        });
+
+        previous.addEventListener('click', () => {
+            goTo(currentIndex - 1);
+        });
     }
 
     init();
