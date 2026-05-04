@@ -62,6 +62,7 @@ body {
 .carousel__controls {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.5rem;
   margin-top: 1.25rem;
 }
@@ -94,6 +95,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  width: 100%;
   list-style: none;
   margin-left: auto;
 }
