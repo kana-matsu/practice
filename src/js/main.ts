@@ -14,6 +14,7 @@ const carousel = (root: HTMLElement) => {
     }
 
     let currentIndex = 0;
+    let dots: HTMLButtonElement[] = [];
 
     const goTo = (i: number) => {
         if (i === currentIndex) {
@@ -21,8 +22,13 @@ const carousel = (root: HTMLElement) => {
         }
 
         wrapper.style.transform = `translate3d(-${i * 100}%, 0, 0)`;
+        
         slides[currentIndex].setAttribute('inert', '');
         slides[i].removeAttribute('inert');
+
+        dots[currentIndex].removeAttribute('aria-current');
+        dots[i].setAttribute('aria-current', 'true');
+
         currentIndex = i;
     }
 
@@ -54,11 +60,16 @@ const carousel = (root: HTMLElement) => {
             }
 
             dot.textContent = `${i + 1}`;
+
+            if (i === currentIndex) {
+                dot.setAttribute('aria-current', 'true');
+            }
             
             dot.addEventListener('click', () => {
                 goTo(i);
             });
 
+            dots.push(dot);
             fragment.append(clone);
         });
 

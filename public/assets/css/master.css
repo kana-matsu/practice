@@ -128,7 +128,6 @@ a:hover {
   background-color: var(--color-dot-active);
 }
 
-.carousel__dot.is-active {
+.carousel__dot[aria-current='true'] {
   background-color: var(--color-dot-active);
-  transform: scale(1.4);
 }
