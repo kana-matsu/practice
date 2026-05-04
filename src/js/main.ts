@@ -2,14 +2,14 @@
 const carousel = (root: HTMLElement) => {
     const wrapper = root.querySelector<HTMLElement>('.js-carousel__wrapper');
     const slides = root.querySelectorAll<HTMLElement>('.js-carousel__slide');
-    const stop = root.querySelector<HTMLButtonElement>('.js-carousel__stop');
-    const play = root.querySelector<HTMLButtonElement>('.js-carousel__play');
+    const button = root.querySelector<HTMLButtonElement>('.js-carousel__button');
+    const buttonText = root.querySelector<HTMLSpanElement>('.js-carousel__button-text');
     const previous = root.querySelector<HTMLButtonElement>('.js-carousel__previous');
     const next = root.querySelector<HTMLButtonElement>('.js-carousel__next');
     const pagination = root.querySelector<HTMLUListElement>('.js-carousel__pagination');
     const template = root.querySelector<HTMLTemplateElement>('.js-carousel__template');
 
-    if (!wrapper || !pagination || !template || !next || !previous || !stop || !play) {
+    if (!wrapper || !pagination || !template || !next || !previous || !button) {
         return;
     }
 
@@ -52,10 +52,24 @@ const carousel = (root: HTMLElement) => {
     }
 
     const autoplaySlides = () => {
+        button.classList.remove('is-paused')
+        button.classList.add('is-playing');
+
+        if (buttonText) {
+            buttonText.textContent = 'Pause';
+        }
+
         intervalId ??= setInterval(goNext, INTERVAL);
     }
 
     const stopSlides = () => {
+        button.classList.remove('is-playing')
+        button.classList.add('is-paused');
+
+        if (buttonText) {
+            buttonText.textContent = 'Play';
+        }
+    
         if (!intervalId) {
             return;
         }
@@ -109,8 +123,14 @@ const carousel = (root: HTMLElement) => {
 
         next.addEventListener('click', goNext);
         previous.addEventListener('click', goPrevious);
-        stop.addEventListener('click', stopSlides);
-        play.addEventListener('click', autoplaySlides);
+        
+        button.addEventListener('click', () => {
+            if (!intervalId) {
+                autoplaySlides();
+            } else {
+                stopSlides();
+            }
+        });
     }
 
     init();

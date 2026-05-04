@@ -96,17 +96,16 @@ button {
   column-gap: 10px;
 }
 
-.carousel__play,
-.carousel__stop {
+.carousel__button {
   width: 12px;
   height: 14px;
 }
 
-.carousel__stop {
+.carousel__button.is-playing {
   border-inline: 4px solid var(--color-accent);
 }
 
-.carousel__play {
+.carousel__button.is-paused {
   clip-path: polygon(0 0, 0 100%, 100% 50%);
   background-color: var(--color-accent);
 }
@@ -147,8 +146,7 @@ button {
   margin-right: 4px;
 }
 
-.carousel__play-text,
-.carousel__stop-text,
+.carousel__button-text,
 .carousel__previous-text,
 .carousel__next-text {
   position: absolute;
