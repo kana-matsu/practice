@@ -81,9 +81,9 @@ const carousel = (root: HTMLElement) => {
     }
 
     const init = () => {
-        const dots = generateDots();
+        const fragment = generateDots();
 
-        template.replaceWith(dots);
+        template.replaceWith(fragment);
 
         slides.forEach((slide, i) => {
             if (i === currentIndex) {
