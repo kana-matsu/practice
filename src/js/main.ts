@@ -15,25 +15,11 @@ const carousel = (root: HTMLElement) => {
 
     let currentIndex = 0;
 
-    const generateDots = () => {
-        const fragment = document.createDocumentFragment();
-
-        slides.forEach((_, i) => {
-            const clone = template.content.cloneNode(true) as DocumentFragment;
-            const dot = clone.querySelector<HTMLButtonElement>('.js-carousel__dot');
-
-            if (!dot) {
-                return;
-            }
-
-            dot.textContent = `${i + 1}`;
-            fragment.append(clone);
-        });
-
-        return fragment;
-    }
-
     const goTo = (i: number) => {
+        if (i === currentIndex) {
+            return;
+        }
+
         wrapper.style.transform = `translate3d(-${i * 100}%, 0, 0)`;
         currentIndex = i;
     }
@@ -52,6 +38,29 @@ const carousel = (root: HTMLElement) => {
         } else {
             goTo(currentIndex - 1);
         }
+    }
+
+    const generateDots = () => {
+        const fragment = document.createDocumentFragment();
+
+        slides.forEach((_, i) => {
+            const clone = template.content.cloneNode(true) as DocumentFragment;
+            const dot = clone.querySelector<HTMLButtonElement>('.js-carousel__dot');
+
+            if (!dot) {
+                return;
+            }
+
+            dot.textContent = `${i + 1}`;
+            
+            dot.addEventListener('click', () => {
+                goTo(i);
+            });
+
+            fragment.append(clone);
+        });
+
+        return fragment;
     }
 
     const init = () => {
