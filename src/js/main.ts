@@ -16,6 +16,8 @@ const carousel = (root: HTMLElement) => {
     let currentIndex = 0;
     let dots: HTMLButtonElement[] = [];
 
+    const INTERVAL = 5000;
+
     const goTo = (i: number) => {
         if (i === currentIndex) {
             return;
@@ -49,7 +51,7 @@ const carousel = (root: HTMLElement) => {
     }
 
     const autoplay = () => {
-        setInterval(goNext, 5000);
+        setInterval(goNext, INTERVAL);
     }
 
     const generateDots = () => {
