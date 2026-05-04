@@ -38,26 +38,29 @@ const carousel = (root: HTMLElement) => {
         currentIndex = i;
     }
 
+    const goNext = () => {
+        if (currentIndex === slides.length - 1) {
+            goTo(0);
+        } else {
+            goTo(currentIndex + 1);
+        }
+    }
+
+    const goPrevious = () => {
+        if (currentIndex === 0) {
+            goTo(slides.length - 1);
+        } else {
+            goTo(currentIndex - 1);
+        }
+    }
+
     const init = () => {
         const dots = generateDots();
 
         template.replaceWith(dots);
 
-        next.addEventListener('click', () => {
-            if (currentIndex === slides.length - 1) {
-                goTo(0);
-            } else {
-                goTo(currentIndex + 1);
-            }
-        });
-
-        previous.addEventListener('click', () => {
-            if (currentIndex === 0) {
-                goTo(slides.length - 1);
-            } else {
-                goTo(currentIndex - 1);
-            }
-        });
+        next.addEventListener('click', goNext);
+        previous.addEventListener('click', goPrevious);
     }
 
     init();
