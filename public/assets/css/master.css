@@ -33,12 +33,13 @@ body {
 .carousel {
   width: 100%;
   max-width: 720px;
+  overflow: hidden;
 }
 
 .carousel__wrapper {
   display: flex;
-  overflow: hidden;
   width: 100%;
+  transition: transform var(--transition-speed) ease;
 }
 
 .carousel__slide {
@@ -51,7 +52,6 @@ body {
   font-size: 1.5rem;
   letter-spacing: 0.05em;
   color: var(--color-text);
-  transition: transform var(--transition-speed) ease;
   user-select: none;
 }
 
