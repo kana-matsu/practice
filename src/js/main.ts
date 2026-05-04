@@ -48,6 +48,10 @@ const carousel = (root: HTMLElement) => {
         }
     }
 
+    const autoplay = () => {
+        setInterval(goNext, 5000);
+    }
+
     const generateDots = () => {
         const fragment = document.createDocumentFragment();
 
@@ -88,6 +92,8 @@ const carousel = (root: HTMLElement) => {
 
             slide.setAttribute('inert', '');
         });
+
+        autoplay();
 
         next.addEventListener('click', goNext);
         previous.addEventListener('click', goPrevious);
