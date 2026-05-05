@@ -39,7 +39,8 @@ a  {
   transition: opacity var(--transition-speed);
 }
 
-a:hover {
+a:hover,
+a:focus-visible {
   opacity: .4;
 }
 
@@ -116,7 +117,8 @@ button {
   background-color: var(--color-accent);
 }
 
-.carousel__button:hover {
+.carousel__button:hover,
+.carousel__button:focus-visible {
   opacity: .4;
 }
 
@@ -159,12 +161,16 @@ button {
 }
 
 .carousel__previous:hover,
-.carousel__next:hover {
+.carousel__next:hover,
+.carousel__previous:focus-visible,
+.carousel__next:focus-visible {
   background-color: var(--color-accent);
 }
 
 .carousel__previous:hover::after,
-.carousel__next:hover::after {
+.carousel__next:hover::after,
+.carousel__previous:focus-visible::after,
+.carousel__next:focus-visible::after {
   border-color: var(--color-bg);
 }
 
@@ -201,7 +207,8 @@ button {
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.carousel__dot:hover {
+.carousel__dot:hover,
+.carousel__dot:focus-visible {
   background-color: var(--color-dot-active);
 }
 
