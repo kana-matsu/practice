@@ -141,15 +141,15 @@ const carousel = (root: HTMLElement) => {
             isAnimating = true;
         });
 
+        wrapper.addEventListener('transitionend', () => {
+            isAnimating = false;
+        });
+
         wrapper.addEventListener('touchstart', (e: TouchEvent) => {
             isAnimating = true;
 
             startX = e.touches[0].clientX;
             startY = e.touches[0].clientY;
-        });
-
-        wrapper.addEventListener('transitionend', () => {
-            isAnimating = false;
         });
 
         wrapper.addEventListener('touchmove', (e: TouchEvent) => {
@@ -170,6 +170,8 @@ const carousel = (root: HTMLElement) => {
                     goNext();
                 }
             }
+
+            resetTimer();
         });
 
         next.addEventListener('click', () => {
