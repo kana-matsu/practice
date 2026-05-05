@@ -155,6 +155,13 @@ const carousel = (root: HTMLElement) => {
         wrapper.addEventListener('touchmove', (e: TouchEvent) => {
             endX = e.changedTouches[0].clientX;
             endY = e.changedTouches[0].clientY;
+
+            const distanceX = endX - startX;
+            const distanceY = endY - startY;
+
+            if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) <= MIN_DISTANCE) {
+                wrapper.style.transform = `translate3d(${distanceX}px, 0, 0)`;
+            }
         });
 
         wrapper.addEventListener('touchend', () => {
