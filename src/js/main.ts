@@ -13,6 +13,11 @@ const carousel = (root: HTMLElement) => {
         return;
     }
 
+    const INTERVAL = 5000;
+    const MIN_DISTANCE = window.innerWidth * 0.3;
+    const SLIDES_PER_VIEW = 1;
+    const CLONES_COUNT = SLIDES_PER_VIEW + 1;
+
     let currentIndex = 0;
     let isAnimating = false;
     let startX = 0;
@@ -22,16 +27,12 @@ const carousel = (root: HTMLElement) => {
     let dots: HTMLButtonElement[] = [];
     let intervalId: ReturnType<typeof setInterval> | null = null;
 
-    const INTERVAL = 5000;
-    const MIN_DISTANCE = window.innerWidth * 0.3;
-    const SLIDES_PER_VIEW = 1;
-
     const goTo = (i: number) => {
         if (i === currentIndex || isAnimating) {
             return;
         }
 
-        wrapper.style.transform = `translate3d(-${i * 100 / SLIDES_PER_VIEW}%, 0, 0)`;
+        wrapper.style.transform = `translate3d(-${(i + CLONES_COUNT) * 100 / SLIDES_PER_VIEW}%, 0, 0)`;
         
         slides[currentIndex].setAttribute('inert', '');
         slides[i].removeAttribute('inert');
@@ -151,6 +152,8 @@ const carousel = (root: HTMLElement) => {
         template.replaceWith(fragment);
         wrapper.prepend(...clones.clonesBefore);
         wrapper.append(...clones.clonesAfter);
+        wrapper.style.transform = `translate3d(-${CLONES_COUNT * 100}%, 0, 0)`;
+        autoplaySlides();
 
         slides.forEach((slide, i) => {
             if (i === currentIndex) {
@@ -159,8 +162,6 @@ const carousel = (root: HTMLElement) => {
 
             slide.setAttribute('inert', '');
         });
-
-        autoplaySlides();
 
         wrapper.addEventListener('transitionstart', () => {
             isAnimating = true;
@@ -185,7 +186,7 @@ const carousel = (root: HTMLElement) => {
             const distanceY = endY - startY;
 
             if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) <= MIN_DISTANCE) {
-                wrapper.style.transform = `translate3d(calc(-${currentIndex * 100}% + ${distanceX}px), 0, 0)`;
+                wrapper.style.transform = `translate3d(calc(-${(currentIndex + CLONES_COUNT) * 100}% + ${distanceX}px), 0, 0)`;
             }
         });
 
@@ -203,7 +204,7 @@ const carousel = (root: HTMLElement) => {
                         goNext();
                     }
                 } else {
-                    wrapper.style.transform = `translate3d(-${currentIndex * 100}%, 0, 0)`;
+                    wrapper.style.transform = `translate3d(-${(currentIndex + CLONES_COUNT) * 100}%, 0, 0)`;
                 }
             }
 
