@@ -123,10 +123,34 @@ const carousel = (root: HTMLElement) => {
         return fragment;
     }
 
+    const cloneSlides = () => {
+        const clonesBefore = [
+            slides[slides.length - 1].cloneNode(true) as Element,
+            slides[slides.length - 2].cloneNode(true) as Element
+        ];
+
+        const clonesAfter = [
+            slides[0].cloneNode(true) as Element,
+            slides[1].cloneNode(true) as Element
+        ];
+
+        [...clonesBefore, ...clonesAfter].forEach((clone) => {
+            clone.classList.add('is-clone');
+        });
+
+        return {
+            clonesBefore,
+            clonesAfter
+        }
+    }
+
     const init = () => {
         const fragment = generateDots();
+        const clones = cloneSlides();
 
         template.replaceWith(fragment);
+        wrapper.prepend(...clones.clonesBefore);
+        wrapper.append(...clones.clonesAfter);
 
         slides.forEach((slide, i) => {
             if (i === currentIndex) {
