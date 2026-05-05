@@ -23,7 +23,7 @@ const carousel = (root: HTMLElement) => {
     let intervalId: ReturnType<typeof setInterval> | null = null;
 
     const INTERVAL = 5000;
-    const MIN_DISTANCE = 50;
+    const MIN_DISTANCE = window.innerWidth * 0.3;
 
     const goTo = (i: number) => {
         if (i === currentIndex || isAnimating) {
@@ -170,11 +170,15 @@ const carousel = (root: HTMLElement) => {
             const distanceX = endX - startX;
             const distanceY = endY - startY;
 
-            if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > MIN_DISTANCE) {
-                if (distanceX > 0) {
-                    goPrevious();
+            if (Math.abs(distanceX) > Math.abs(distanceY)) {
+                if (Math.abs(distanceX) > MIN_DISTANCE) {
+                    if (distanceX > 0) {
+                        goPrevious();
+                    } else {
+                        goNext();
+                    }
                 } else {
-                    goNext();
+                    wrapper.style.transform = `translate3d(-${currentIndex * 100}%, 0, 0)`;
                 }
             }
 
