@@ -165,9 +165,9 @@ const carousel = (root: HTMLElement) => {
 
             if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > MIN_DISTANCE) {
                 if (distanceX > 0) {
-                    goPrevious();
-                } else {
                     goNext();
+                } else {
+                    goPrevious();
                 }
             }
         });
