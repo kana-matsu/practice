@@ -160,7 +160,7 @@ const carousel = (root: HTMLElement) => {
             const distanceY = endY - startY;
 
             if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) <= MIN_DISTANCE) {
-                wrapper.style.transform = `translate3d(${distanceX}px, 0, 0)`;
+                wrapper.style.transform = `translate3d(calc(-${currentIndex * 100}% + ${distanceX}px), 0, 0)`;
             }
         });
 
