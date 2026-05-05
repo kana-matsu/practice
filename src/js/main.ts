@@ -14,13 +14,14 @@ const carousel = (root: HTMLElement) => {
     }
 
     let currentIndex = 0;
+    let isAnimating = false;
     let dots: HTMLButtonElement[] = [];
     let intervalId: ReturnType<typeof setInterval> | null = null;
 
     const INTERVAL = 5000;
 
     const goTo = (i: number) => {
-        if (i === currentIndex) {
+        if (i === currentIndex || isAnimating) {
             return;
         }
 
@@ -130,6 +131,14 @@ const carousel = (root: HTMLElement) => {
         });
 
         autoplaySlides();
+
+        wrapper.addEventListener('transitionstart', () => {
+            isAnimating = true;
+        });
+
+        wrapper.addEventListener('transitionend', () => {
+            isAnimating = false;
+        });
 
         next.addEventListener('click', () => {
             goNext();
