@@ -63,6 +63,7 @@ button {
 }
 
 .carousel__slide {
+  position: relative;
   min-width: 100%;
   display: flex;
   flex-direction: column;
@@ -74,11 +75,19 @@ button {
   font-size: 1.5rem;
   letter-spacing: 0.05em;
   color: var(--color-text);
-  user-select: none;
 }
 
 .carousel__slide:nth-child(even) {
   background-color: #dddbd4;
+}
+
+.carousel__slide.is-clone::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-accent);
+  opacity: .3;
 }
 
 .carousel__controls {
