@@ -15,10 +15,15 @@ const carousel = (root: HTMLElement) => {
 
     let currentIndex = 0;
     let isAnimating = false;
+    let startX = 0;
+    let startY = 0;
+    let endX = 0;
+    let endY = 0;
     let dots: HTMLButtonElement[] = [];
     let intervalId: ReturnType<typeof setInterval> | null = null;
 
     const INTERVAL = 5000;
+    const MIN_DISTANCE = 50;
 
     const goTo = (i: number) => {
         if (i === currentIndex || isAnimating) {
@@ -136,8 +141,35 @@ const carousel = (root: HTMLElement) => {
             isAnimating = true;
         });
 
+        wrapper.addEventListener('touchstart', (e: TouchEvent) => {
+            isAnimating = true;
+
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        });
+
         wrapper.addEventListener('transitionend', () => {
             isAnimating = false;
+        });
+
+        wrapper.addEventListener('touchmove', (e: TouchEvent) => {
+            endX = e.changedTouches[0].clientX;
+            endY = e.changedTouches[0].clientY;
+        });
+
+        wrapper.addEventListener('touchend', () => {
+            isAnimating = false;
+
+            const distanceX = endX - startX;
+            const distanceY = endY - startY;
+
+            if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > MIN_DISTANCE) {
+                if (distanceX > 0) {
+                    goPrevious();
+                } else {
+                    goNext();
+                }
+            }
         });
 
         next.addEventListener('click', () => {
