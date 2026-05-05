@@ -24,13 +24,14 @@ const carousel = (root: HTMLElement) => {
 
     const INTERVAL = 5000;
     const MIN_DISTANCE = window.innerWidth * 0.3;
+    const SLIDES_PER_VIEW = 1;
 
     const goTo = (i: number) => {
         if (i === currentIndex || isAnimating) {
             return;
         }
 
-        wrapper.style.transform = `translate3d(-${i * 100}%, 0, 0)`;
+        wrapper.style.transform = `translate3d(-${i * 100 / SLIDES_PER_VIEW}%, 0, 0)`;
         
         slides[currentIndex].setAttribute('inert', '');
         slides[i].removeAttribute('inert');
