@@ -78,6 +78,15 @@ const carousel = (root: HTMLElement) => {
         intervalId = null;
     }
 
+    const resetTimer = () => {
+        if (!intervalId) {
+            return;
+        }
+
+        clearInterval(intervalId);
+        intervalId = setInterval(goNext, INTERVAL);
+    }
+
     const generateDots = () => {
         const fragment = document.createDocumentFragment();
 
@@ -97,6 +106,7 @@ const carousel = (root: HTMLElement) => {
             
             dot.addEventListener('click', () => {
                 goTo(i);
+                resetTimer();
             });
 
             dots.push(dot);
@@ -121,8 +131,15 @@ const carousel = (root: HTMLElement) => {
 
         autoplaySlides();
 
-        next.addEventListener('click', goNext);
-        previous.addEventListener('click', goPrevious);
+        next.addEventListener('click', () => {
+            goNext();
+            resetTimer();
+        });
+
+        previous.addEventListener('click', () => {
+            goPrevious();
+            resetTimer();
+        });
         
         button.addEventListener('click', () => {
             if (!intervalId) {
