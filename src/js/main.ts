@@ -96,8 +96,6 @@ const carousel = (root: HTMLElement) => {
     }
 
     const generateDots = () => {
-        const fragment = document.createDocumentFragment();
-
         slides.forEach((_, i) => {
             const clone = template.content.cloneNode(true) as DocumentFragment;
             const dot = clone.querySelector<HTMLButtonElement>('.js-carousel__dot');
@@ -118,10 +116,9 @@ const carousel = (root: HTMLElement) => {
             });
 
             dots.push(dot);
-            fragment.append(clone);
+            pagination.append(clone);
         });
 
-        return fragment;
     }
 
     const cloneSlides = () => {
@@ -146,10 +143,9 @@ const carousel = (root: HTMLElement) => {
     }
 
     const init = () => {
-        const fragment = generateDots();
         const clones = cloneSlides();
 
-        template.replaceWith(fragment);
+        generateDots();
         wrapper.prepend(...clones.clonesBefore);
         wrapper.append(...clones.clonesAfter);
         wrapper.style.transform = `translate3d(-${CLONES_COUNT * 100}%, 0, 0)`;
